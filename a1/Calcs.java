@@ -28,7 +28,7 @@ System.out.print("]\n");
 		int cost = 0;
 		for(int i = 0; i < assignments.length; i++)
 		{
-			cost = cost + io.machinePenaltiesArray.get(i)[cols[i]];
+			cost += io.machinePenaltiesArray.get(i)[cols[i]];
 
 		}
 //System.out.println("machine cost = " + cost);
@@ -42,7 +42,7 @@ System.out.print("]\n");
 			return -1;
 		}
 
-		int cost = 0;
+		int fcost = 0;
 		// For each task proposed assignment, check to see if it occurs in tooNearPenaltiesArray
 		for(int i = 0; i < assignments.length; i++)
 		{
@@ -50,24 +50,24 @@ System.out.print("]\n");
 			{
 				if((assignments[i].mTask).equals(io.tooNearPenaltiesArray.get(j).getTask1()))
 				{
-//System.out.println("FIRST PENALTY FOUND: " + io.tooNearPenaltiesArray.get(j).getTask1());
+		//System.out.println("FIRST PENALTY FOUND: " + io.tooNearPenaltiesArray.get(j).getTask1());
 					// If it does, check to see if the second task in tooNearPenaltiesArray matches the
 					// next value in assignments[]
 					if((assignments[(i+1) % (assignments.length)].mTask).equals(io.tooNearPenaltiesArray.get(j).getTask2()))
 					{
-//System.out.println("SECOND PENALTY FOUND: " + io.tooNearPenaltiesArray.get(j).getTask2());
-						cost = cost + + io.tooNearPenaltiesArray.get(j).getPenalty();
-//System.out.println("cost = " + cost);
+		//System.out.println("SECOND PENALTY FOUND: " + io.tooNearPenaltiesArray.get(j).getTask2());
+						fcost = fcost +  io.tooNearPenaltiesArray.get(j).getPenalty();
+		//System.out.println("cost = " + cost);
 					}
 				}
 			}
 		}
-//System.out.println("too-near cost = " + cost);
+		//System.out.println("too-near cost = " + cost);
 
 		// Add in the basic machine penalties
-		cost = cost + CalculateCost(assignments);
-//System.out.println("total cost = " + cost);
+		fcost = fcost + CalculateCost(assignments);
+		//System.out.println("total cost = " + fcost);
 
-		return cost;
+		return fcost;
 	}
 }
